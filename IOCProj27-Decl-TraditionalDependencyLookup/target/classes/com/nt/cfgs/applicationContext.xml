@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- cfgs Dependent class bean -->
+	<bean id="bat2" class="com.nt.beans.CricketBat" lazy-init="true"/>
+		
+		<!-- Target spring  beans-->
+		<bean id="cktr" class="com.nt.beans.Cricketer" lazy-init="true">
+			<constructor-arg name="batid" value="bat2"/> <!-- It is dependent class bean id injection -->
+		 </bean>
+
+</beans>
