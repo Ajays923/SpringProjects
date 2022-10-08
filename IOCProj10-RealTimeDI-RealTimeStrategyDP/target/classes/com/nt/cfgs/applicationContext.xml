@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	
+	<!-- DataSource Cfgs -->
+	<bean id="oradmds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="system"/>
+		<property name="password" value="Admin"/>
+	</bean>
+	
+	<bean id="mysqldmds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql:///ntaj415db"/>
+		<property name="username" value="root"/>
+		<property name="password" value="Ajay@1234"/>
+	</bean>
+	
+	<!-- DAO class cgfs-->
+	<bean id="oracustDAO" class="com.nt.dao.CustomerOracleDAOImpl" >
+		<constructor-arg name="ds" ref="oradmds"/>
+	</bean>
+	
+	<bean id="mysqlcustDAO" class="com.nt.dao.CustomerMySqlDAOImpl" >
+		<constructor-arg name="ds" ref="mysqldmds"/>
+	</bean>
+	
+	<!-- service class cfgs -->
+	<bean id="custService" class="com.nt.service.CustomerMgmtServiceImple">
+		<!-- <constructor-arg name="ds" ref="oracustDAO"/> -->
+		<constructor-arg name="dao" ref="mysqlcustDAO"/>
+	</bean>
+	
+	<!-- Controller class cfgs -->
+	<bean id="controller" class="com.nt.controller.MainController">
+		<constructor-arg ref="custService"/>
+	</bean>
+</beans>
